@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class SuaImagem extends StatefulWidget {
   final String caminhoArquivo;
-  const SuaImagem({Key key, this.caminhoArquivo}): super(key:key);
+  const SuaImagem({Key key, this.caminhoArquivo}) : super(key:key);
   @override
   _SuaImagemState createState() => _SuaImagemState();
 }
@@ -14,6 +14,10 @@ class _SuaImagemState extends State<SuaImagem> {
       widget.caminhoArquivo,
       filterQuality: FilterQuality.high,
       fit: BoxFit.cover,
+      height: 160,
+      width: 180
     );
   }
+
+
 }

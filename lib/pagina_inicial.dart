@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:servicos_essenciais/emergencias.dart';
+import 'package:servicos_essenciais/nossowidget/widget_button.dart';
 import 'package:servicos_essenciais/nossowidget/widget_input.dart';
 import 'nossowidget/widget_imagens.dart';
+
 
 
 class Pagina_Inicial extends StatefulWidget {
@@ -39,6 +42,9 @@ class _Pagina_InicialState extends State<Pagina_Inicial> {
 
                 InputTextos("Login", "Login_", mycontroller: login),
                 InputTextos("Senha", "Senha_", mycontroller: senha),
+                Botoes("Logar", onPressed: (){
+                  _abrirOutraTela(context, Emergencias());
+                })
 
               ]
             )
@@ -46,5 +52,14 @@ class _Pagina_InicialState extends State<Pagina_Inicial> {
         ]
       )
     );
+  }
+
+  _abrirOutraTela(ctx, page) {
+    print("Foi clicado");
+    Navigator.push(ctx, MaterialPageRoute(builder: (BuildContext context)
+    {
+      return page;
+    }
+    ));
   }
 }
