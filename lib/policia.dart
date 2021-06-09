@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:servicos_essenciais/nossowidget/widget_imagens.dart';
 import 'package:servicos_essenciais/nossowidget/widget_input.dart';
 import 'package:servicos_essenciais/nossowidget/widget_button.dart';
 import 'package:servicos_essenciais/tela_final.dart';
@@ -16,6 +17,9 @@ class _PoliciaState extends State<Policia> {
   final tipo = TextEditingController();
   final picker = ImagePicker();
   File _imagem;
+
+  String env_endereco;
+  String env_tipo;
 
 
   @override
@@ -43,11 +47,14 @@ class _PoliciaState extends State<Policia> {
 
                         InputTextos("Informe o tipo da ocorrência", "", mycontroller: tipo,),
 
-                        _imagem == null ? Text('No image selected.') : Image.file(_imagem, width: 250, height: 250,),
+                        _imagem == null ? SuaImagem(caminhoArquivo: "imagens/Vazio.png" ,): Image.file(_imagem, width: 250, height: 250,),
 
                         Botoes("Enviar imagem", onPressed: (){getImage();},),
 
-                        Botoes("Finalizar requisição", onPressed: (){_abrirOutraTela(context, Tela_Final(endereco, tipo, _imagem));})
+                        Botoes("Finalizar requisição", onPressed: (){
+                          salvarEnvios();
+                          _abrirOutraTela(context, Tela_Final(_imagem, env_tipo, env_endereco,));
+                        })
 
 
                       ]
@@ -76,6 +83,14 @@ class _PoliciaState extends State<Policia> {
       return page;
     }
     ));
+  }
+
+
+  salvarEnvios() {
+    setState(() {
+      env_endereco = endereco.text;
+      env_tipo = tipo.text;
+    });
   }
 
 }

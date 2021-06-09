@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:servicos_essenciais/nossowidget/widget_text.dart';
+import 'package:servicos_essenciais/finalizado.dart';
+import 'dart:io';
+
+import 'package:servicos_essenciais/nossowidget/widget_button.dart';
 
 class Tela_Final extends StatefulWidget {
   @override
@@ -15,6 +18,7 @@ class Tela_Final extends StatefulWidget {
 }
 
 class _Tela_FinalState extends State<Tela_Final> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,6 +30,9 @@ class _Tela_FinalState extends State<Tela_Final> {
   }
 
   _body() {
+    String endereco = widget.endereco;
+    String tipo = widget.tipo;
+    File imagem = widget._imagem;
     return Container(
       //color: Colors.grey,
         child: Row(
@@ -36,9 +43,13 @@ class _Tela_FinalState extends State<Tela_Final> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children:[
 
-                        Textos(widget.endereco),
-                        Textos(widget.tipo),
-                        Image.file(widget._imagem),
+                        Text("Endereço: " + endereco),
+                        Text("Ocorrência: " + tipo),
+                        Image.file(widget._imagem, width: 150, height: 150),
+
+                        Botoes("Finalizar", onPressed: (){
+                          _abrirOutraTela(context, Finalizado());
+                        },)
 
                       ]
                   )
@@ -46,6 +57,14 @@ class _Tela_FinalState extends State<Tela_Final> {
             ]
         )
     );
+  }
+
+  _abrirOutraTela(ctx, page) {
+    print("Foi clicado");
+    Navigator.push(ctx, MaterialPageRoute(builder: (BuildContext context) {
+      return page;
+    }
+    ));
   }
 
 }

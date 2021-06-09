@@ -10,11 +10,11 @@ class Botoes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
-        color: Colors.red,
+        color: Colors.cyan,
         child: Text(
           texto,
           style: TextStyle(
-            color: Colors.white,
+            color: Colors.black,
             fontSize: 25,
           ),
         ),
