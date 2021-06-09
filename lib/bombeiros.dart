@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:servicos_essenciais/nossowidget/widget_button.dart';
+import 'package:servicos_essenciais/nossowidget/widget_imagens.dart';
 import 'package:servicos_essenciais/nossowidget/widget_input.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
@@ -21,6 +22,8 @@ class _BombeirosState extends State<Bombeiros> {
   final picker = ImagePicker();
   File _imagem;
 
+  String env_endereco;
+  String env_tipo;
 
 
   @override
@@ -35,7 +38,7 @@ class _BombeirosState extends State<Bombeiros> {
 
   _body() {
     return Container(
-        //color: Colors.grey,
+      //color: Colors.grey,
         child: Row(
             children: [
               Expanded(
@@ -48,11 +51,14 @@ class _BombeirosState extends State<Bombeiros> {
 
                         InputTextos("Informe o tipo da ocorrência", "", mycontroller: tipo,),
 
-                        _imagem == null ? Text('No image selected.') : Image.file(_imagem, width: 250, height: 250,),
+                        _imagem == null ? SuaImagem(caminhoArquivo: "imagens/Vazio.png" ,): Image.file(_imagem, width: 250, height: 250,),
 
                         Botoes("Enviar imagem", onPressed: (){getImage();},),
 
-                        Botoes("Finalizar requisição", onPressed: (){_abrirOutraTela(context, Tela_Final(endereco, tipo, _imagem));})
+                        Botoes("Finalizar requisição", onPressed: (){
+                          salvarEnvios();
+                          _abrirOutraTela(context, Tela_Final(_imagem, env_tipo, env_endereco,));
+                        })
 
 
                       ]
@@ -81,6 +87,14 @@ class _BombeirosState extends State<Bombeiros> {
       return page;
     }
     ));
+  }
+
+
+  salvarEnvios() {
+    setState(() {
+      env_endereco = endereco.text;
+      env_tipo = tipo.text;
+    });
   }
 
 }
